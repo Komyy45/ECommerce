@@ -9,5 +9,7 @@ public sealed class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<Brand, GetAllBrandsResponse>();
+
+        CreateMap<Product, GetAllProductsResponse>();
     }    
 }
