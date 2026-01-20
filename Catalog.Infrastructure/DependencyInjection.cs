@@ -1,5 +1,7 @@
-﻿using Catalog.Infrastructure.Persistence.Data;
+﻿using Catalog.Domain.Repositories;
+using Catalog.Infrastructure.Persistence.Data;
 using Catalog.Infrastructure.Persistence.Data.Configurations;
+using Catalog.Infrastructure.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -14,7 +16,17 @@ public static class DependencyInjection
     {
         AddPersistence(services, configuration);
         AddHealthChecks(services);
+        AddRepositories(services);
+        
         return services;
+    }
+
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.AddScoped<CatalogDbContext>();
+        services.AddScoped<IProductRepository, ProductsRepository>();
+        services.AddScoped<IBrandRepository, ProductsRepository>();
+        services.AddScoped<IProductTypeRepository, ProductsRepository>();
     }
 
     private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
