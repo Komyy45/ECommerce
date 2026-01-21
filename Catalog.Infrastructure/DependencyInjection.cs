@@ -23,10 +23,10 @@ public static class DependencyInjection
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped<CatalogDbContext>();
-        services.AddScoped<IProductRepository, ProductsRepository>();
-        services.AddScoped<IBrandRepository, ProductsRepository>();
-        services.AddScoped<IProductTypeRepository, ProductsRepository>();
+        services.AddSingleton<CatalogDbContext>();
+        services.AddSingleton<IProductRepository, ProductsRepository>();
+        services.AddSingleton<IBrandRepository, ProductsRepository>();
+        services.AddSingleton<IProductTypeRepository, ProductsRepository>();
     }
 
     private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
