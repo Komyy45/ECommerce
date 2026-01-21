@@ -25,5 +25,7 @@ public sealed class MappingProfile : Profile
         
         CreateMap<Product, CreateProductResponse>();
         
+        CreateMap<UpdateProductCommand, Product>();
+        
     }    
 }

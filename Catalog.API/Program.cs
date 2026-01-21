@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Catalog.Application;
 using Catalog.Infrastructure;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -5,6 +6,12 @@ using Microsoft.AspNetCore.Http.HttpResults;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApiVersioning(options =>
+{
+    options.ReportApiVersions = true;
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+});
 builder.Services.AddInfrastructure(builder.Configuration).AddApplication();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
