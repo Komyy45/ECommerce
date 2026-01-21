@@ -17,5 +17,7 @@ public sealed class MappingProfile : Profile
         CreateMap<Product, GetProductByIdResponse>();
         
         CreateMap<Product, GetProductsByBrandNameResponse>();
+        
+        CreateMap<Product, GetAllProductsByNameResponse>();
     }    
 }

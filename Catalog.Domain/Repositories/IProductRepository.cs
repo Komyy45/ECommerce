@@ -5,6 +5,7 @@ namespace Catalog.Domain.Repositories;
 public interface IProductRepository
 {
     Task<IEnumerable<Product>> GetAllProducts();
+    Task<IEnumerable<Product>> GetAllProductsByName(string name);
     Task<Product> GetProductById(string id);
     Task<Product> Create(Product product);
     Task<bool> Update(Product product);

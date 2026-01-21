@@ -12,6 +12,11 @@ public sealed class ProductsRepository(CatalogDbContext context) : IProductRepos
         return await context.Products.Find(_ => true).ToListAsync();
     }
 
+    public async Task<IEnumerable<Product>> GetAllProductsByName(string name)
+    {
+        return await context.Products.Find(p => p.Name == name).ToListAsync();
+    }
+
     public async Task<Product> GetProductById(string id)
     {
         return await context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
