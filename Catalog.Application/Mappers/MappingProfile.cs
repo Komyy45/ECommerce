@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Catalog.Application.Commands;
 using Catalog.Application.Responses;
 using Catalog.Domain.Entities;
 
@@ -19,5 +20,10 @@ public sealed class MappingProfile : Profile
         CreateMap<Product, GetProductsByBrandNameResponse>();
         
         CreateMap<Product, GetAllProductsByNameResponse>();
+        
+        CreateMap<CreateProductCommand, Product>();
+        
+        CreateMap<Product, CreateProductResponse>();
+        
     }    
 }
