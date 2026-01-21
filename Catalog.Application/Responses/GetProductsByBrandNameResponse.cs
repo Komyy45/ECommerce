@@ -2,11 +2,12 @@
 
 namespace Catalog.Application.Responses;
 
-public sealed record GetAllProductsResponse(
+public sealed record GetProductsByBrandNameResponse(
     string Id,
-    string Name, 
+    string Name,
     string Description,
     string Summary,
     decimal Price,
     Brand Brand,
-    ProductType Type);
+    ProductType Type
+    );
