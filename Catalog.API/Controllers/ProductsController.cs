@@ -2,8 +2,8 @@
 using Catalog.Application.Commands;
 using Catalog.Application.Queries;
 using Catalog.Application.Responses;
+using Catalog.Domain.Specs;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers;
@@ -31,9 +31,9 @@ public sealed class ProductsController(ISender sender) : BaseApiController
     
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<GetAllProductsResponse>), (int)HttpStatusCode.OK)]
-    public async Task<IEnumerable<GetAllProductsResponse>> GetAllProducts()
+    public async Task<Pagination<GetAllProductsResponse>> GetAllProducts([FromQuery] PaginatedSpecParams paginatedSpecParams)
     {
-        var query = new GetAllProductsQuery();
+        var query = new GetAllProductsQuery(paginatedSpecParams);
         var result = await sender.Send(query);
         return result;
     }

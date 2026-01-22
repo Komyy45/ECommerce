@@ -8,14 +8,20 @@ namespace Catalog.Application.Handlers.Queries;
 
 public sealed class GetAllProductsQueryHandler(
     IProductRepository productRepository, 
-    IMapper mapper) : IRequestHandler<GetAllProductsQuery, IEnumerable<GetAllProductsResponse>>
+    IMapper mapper) : IRequestHandler<GetAllProductsQuery, Pagination<GetAllProductsResponse>>
 {
-    public async Task<IEnumerable<GetAllProductsResponse>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+    public async Task<Pagination<GetAllProductsResponse>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
     {
-        var products = await productRepository.GetAllProducts();
+        var products = await productRepository.GetAllProducts(request.SpecParams);
 
         var response = mapper.Map<List<GetAllProductsResponse>>(products);
+
+        var count = await productRepository.Count();
         
-        return response;
+        return new Pagination<GetAllProductsResponse>(
+            request.SpecParams.PageIndex,
+            request.SpecParams.PageSize,
+            count,
+            response);
     }
 }

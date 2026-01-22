@@ -1,11 +1,13 @@
 ﻿using Catalog.Domain.Entities;
+using Catalog.Domain.Specs;
 
 namespace Catalog.Domain.Repositories;
 
 public interface IProductRepository
 {
-    Task<IEnumerable<Product>> GetAllProducts();
+    Task<IEnumerable<Product>> GetAllProducts(PaginatedSpecParams? specParams = null);
     Task<IEnumerable<Product>> GetAllProductsByName(string name);
+    Task<int> Count();
     Task<Product> GetProductById(string id);
     Task<Product> Create(Product product);
     Task<bool> Update(Product product);
