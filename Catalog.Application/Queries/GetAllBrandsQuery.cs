@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Catalog.Application.Queries;
 
-public sealed record GetAllBrandsQuery() : IRequest<GetAllBrandsResponse>, IRequest<IEnumerable<GetAllBrandsResponse>>;
+public sealed record GetAllBrandsQuery() : IRequest<IEnumerable<GetAllBrandsResponse>>;

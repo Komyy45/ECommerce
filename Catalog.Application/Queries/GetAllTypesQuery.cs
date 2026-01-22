@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Catalog.Application.Queries;
 
-public sealed record GetAllTypesQuery() : IRequest<GetAllTypesResponse>, IRequest<IEnumerable<GetAllTypesResponse>>;
+public sealed record GetAllTypesQuery() : IRequest<IEnumerable<GetAllTypesResponse>>;

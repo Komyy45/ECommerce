@@ -7,9 +7,9 @@ public static class ContextSeedExtensions
 {
     public static async Task SeedAsync<TSeed>(this IMongoCollection<TSeed> collection, string path)
     {
-        var hasData = await collection.CountDocumentsAsync(_ => true);
+        var hasData = await collection.Find(_ => true).Limit(1).AnyAsync();
 
-        if (hasData > 0) return;
+        if (hasData) return;
         
         var dataText = await File.ReadAllTextAsync(path);
 
