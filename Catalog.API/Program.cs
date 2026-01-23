@@ -1,7 +1,6 @@
 using Asp.Versioning;
 using Catalog.Application;
 using Catalog.Infrastructure;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 

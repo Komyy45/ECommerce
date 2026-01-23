@@ -1,9 +1,5 @@
-﻿using Catalog.Domain.Common;
-using Catalog.Domain.Entities;
-using MongoDB.Bson;
+﻿using Catalog.Domain.Entities;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.IdGenerators;
-using MongoDB.Bson.Serialization.Serializers;
 
 namespace Catalog.Infrastructure.Persistence.Data.Configurations;
 

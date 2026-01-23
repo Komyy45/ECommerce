@@ -2,7 +2,6 @@
 using Catalog.Domain.Repositories;
 using Catalog.Domain.Specs;
 using Catalog.Infrastructure.Persistence.Data;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace Catalog.Infrastructure.Persistence.Repositories;

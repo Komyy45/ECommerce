@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Catalog.Application.Queries;
 using Catalog.Application.Responses;
-using Catalog.Domain.Entities;
 using Catalog.Domain.Repositories;
 using MediatR;
 

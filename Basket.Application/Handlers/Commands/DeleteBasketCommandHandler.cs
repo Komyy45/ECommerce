@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Basket.Application.Commands;
+﻿using Basket.Application.Commands;
 using Basket.Domain.Repositories;
 using MediatR;
 
