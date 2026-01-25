@@ -15,7 +15,25 @@
       - DatabaseSettings__TypesCollection=Types
       - DatabaseSettings__ProductsCollection=Products
       - ASPNETCORE_ENVIRONMENT=Development
-
+  basket.api:
+    image: basket.api
+    build:
+      context: .
+      dockerfile: Basket.API/Dockerfile
+    ports:
+      - "8081:5176"
+    depends_on:
+      - basketdb
+    environment:
+      - CacheSettings__ConnectionString=basketdb:6379
+      - ASPNETCORE_ENVIRONMENT=Development
+  
+  basketdb:
+    image: redis:alpine
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
   catalogdb:
     image: mongo
     container_name: catalogdb

@@ -9,6 +9,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration.GetSection("CacheSettings")["ConnectionString"];
+        });
+        
         services.AddScoped<IBasketRepository, BasketRepository>();
         
         return services;
