@@ -21,6 +21,11 @@ public sealed class DbInitializer
                                    Description TEXT,
                                    Percentage INTEGER NOT NULL
                                );
+                           
+                               INSERT OR IGNORE INTO Coupons (ProductId, Percentage, Description) VALUES
+                                   ('test', 10, 'New Year Discount'),
+                                    ('test2', 20, 'Summer Sale'),
+                                   ('test3', 15, 'Special Offer');
                            """);
     }
 }

@@ -22,12 +22,13 @@
       context: .
       dockerfile: Basket.API/Dockerfile
     ports:
-      - "8081:5176"
+      - "8081:8080"
     depends_on:
       - basketdb
     environment:
       - CacheSettings__ConnectionString=basketdb:6379
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Discount=http://discount.grpc:8080
 
   discount.grpc:
     image: discount.grpc

@@ -8,7 +8,7 @@ public sealed class BasketMappingProfile : Profile
 {
     public BasketMappingProfile()
     {
-        CreateMap<BasketItem, BasketItemResponse>();
+        CreateMap<BasketItem, BasketItemResponse>().ReverseMap();
         CreateMap<Domain.Entities.Basket, BasketResponse>();
     }
 }

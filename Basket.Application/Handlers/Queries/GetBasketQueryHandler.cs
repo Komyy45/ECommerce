@@ -3,41 +3,57 @@ using Basket.Application.Queries;
 using Basket.Application.Responses;
 using Basket.Domain.Repositories;
 using discount.grpc.protos;
-using Google.Protobuf.WellKnownTypes;
 using MediatR;
+using Grpc.Core;
 
 namespace Basket.Application.Handlers.Queries;
 
 public sealed class GetBasketQueryHandler(
-     DiscountService.DiscountServiceClient discountServiceClient,
-     IMapper mapper, 
-     IBasketRepository basketRepository) : IRequestHandler<GetBasketQuery, BasketResponse>
+    DiscountService.DiscountServiceClient discountServiceClient,
+    IMapper mapper,
+    IBasketRepository basketRepository)
+    : IRequestHandler<GetBasketQuery, BasketResponse>
 {
-     public async Task<BasketResponse> Handle(GetBasketQuery request, CancellationToken cancellationToken)
-     {
-          var basket = await basketRepository.Get(request.Id);
+    public async Task<BasketResponse> Handle(
+        GetBasketQuery request,
+        CancellationToken cancellationToken)
+    {
+        var basket = await basketRepository.Get(request.Id);
 
-          List < BasketItemResponse > responseItemsList = [];
+        if (basket is null)
+            return new BasketResponse(request.Id, []);
 
-          foreach (var item in basket.Items)
-          {
-               var couponModel = await discountServiceClient.GetDiscountAsync(new GetDiscountRequest()
-                    { ProductId = item.ProductId });
+        var responseItems = new List<BasketItemResponse>();
 
-               if (couponModel is null) continue;
+        foreach (var item in basket.Items)
+        {
+            var responseItem = mapper.Map<BasketItemResponse>(item);
 
-               var productAfterDiscount = mapper.Map<BasketItemResponse>(item);
-               productAfterDiscount = productAfterDiscount with
-               {
-                    UnitPrice = productAfterDiscount.UnitPrice -
-                                (productAfterDiscount.UnitPrice * (couponModel.Percentage / 100))
-               };
-               
-               responseItemsList.Add(productAfterDiscount);
-          }
+            try
+            {
+                var coupon = await discountServiceClient.GetDiscountAsync(
+                    new GetDiscountRequest { ProductId = item.ProductId },
+                    cancellationToken: cancellationToken);
 
-          var response = new BasketResponse(basket.Id, responseItemsList);
-          
-          return response;
-     }
+                if (coupon is not null && coupon.Percentage > 0)
+                {
+                    responseItem = responseItem with
+                    {
+                        UnitPrice = responseItem.UnitPrice -
+                                    (responseItem.UnitPrice * coupon.Percentage / 100m)
+                    };
+                }
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
+            {
+            }
+            catch (RpcException)
+            {
+            }
+
+            responseItems.Add(responseItem);
+        }
+
+        return new BasketResponse(basket.Id, responseItems);
+    }
 }

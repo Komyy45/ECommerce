@@ -9,7 +9,7 @@ namespace Basket.API.Controllers;
 
 public sealed class BasketController(ISender mediator) : BaseApiController
 {
-    [HttpGet("{id:alpha}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(BasketResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<BasketResponse>> GetBasket(string id)
     {
@@ -18,7 +18,7 @@ public sealed class BasketController(ISender mediator) : BaseApiController
         return response;
     }
     
-    [HttpPut("{id:alpha}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(BasketResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<BasketResponse>> UpdateBasket([FromRoute] string id, [FromBody] IEnumerable<BasketItemResponse> items)
     {
@@ -27,7 +27,7 @@ public sealed class BasketController(ISender mediator) : BaseApiController
         return response;
     }
     
-    [HttpDelete("{id:alpha}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public async Task<ActionResult<BasketResponse>> DeleteBasket([FromRoute] string id)
     {

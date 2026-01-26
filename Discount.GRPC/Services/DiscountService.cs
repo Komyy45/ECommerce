@@ -30,7 +30,11 @@ public sealed class DiscountService
             """,
             new { request.ProductId });
 
-        return coupon is null ? null : MapToProto(coupon);
+        if(coupon is null) throw new RpcException(
+            new Status(StatusCode.NotFound, "Coupon not found")
+        );
+        
+        return MapToProto(coupon);
     }
 
     public override async Task<CouponModel> CreateDiscount(
