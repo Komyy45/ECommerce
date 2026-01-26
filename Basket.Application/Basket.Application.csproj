@@ -9,11 +9,22 @@
     <ItemGroup>
       <ProjectReference Include="..\Basket.Domain\Basket.Domain.csproj" />
       <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
+        
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="16.0.0" />
       <PackageReference Include="MediatR" Version="14.0.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.64.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.64.0" PrivateAssets="All" />
+        <PackageReference Include="Google.Protobuf" Version="3.34.0-rc1" />
     </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="..\Discount.GRPC\Protos\discount.proto"
+                  Link="Protos\discount.proto"
+                  GrpcServices="Client" />
+    </ItemGroup>
+
 
 </Project>
