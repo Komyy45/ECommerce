@@ -3,7 +3,7 @@
     image: catalog.api
     build:
       context: .
-      dockerfile: Catalog.API/Dockerfile
+      dockerfile: services/catalog/Catalog.API/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
@@ -20,7 +20,7 @@
     image: basket.api
     build:
       context: .
-      dockerfile: Basket.API/Dockerfile
+      dockerfile: services/basket/Basket.API/Dockerfile
     ports:
       - "8081:8080"
     depends_on:
@@ -34,7 +34,7 @@
     image: discount.grpc
     build:
       context: .
-      dockerfile: Discount.GRPC/Dockerfile
+      dockerfile: services/discount/Discount.GRPC/Dockerfile
     ports:
       - "8082:8080"
     environment:
