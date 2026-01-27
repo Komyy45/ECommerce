@@ -1,4 +1,4 @@
-﻿namespace Ordering.Domain.Exceptions;
+﻿namespace Ordering.Application.Exceptions;
 
 public sealed class NotFoundException : Exception
 {
