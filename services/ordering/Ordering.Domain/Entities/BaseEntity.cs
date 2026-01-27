@@ -1,6 +1,7 @@
 ﻿namespace Ordering.Domain.Entities;
 
-public abstract class BaseEntity<TKey>
+public abstract class BaseEntity<TKey> : IAuditableEntity
+where TKey : IComparable<TKey>
 {
     public TKey Id { get; set; } = default!;
     public DateTime CreatedOn { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Ordering.Domain.Entities;
 
-public sealed class Order
+public sealed class Order : BaseEntity<string>
 {
     public string? UserName { get; set; } = default!;
     public decimal? TotalPrice { get; set; } = default!;
